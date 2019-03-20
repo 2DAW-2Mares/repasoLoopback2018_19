@@ -1,0 +1,98 @@
+{
+  "name": "Familiar",
+  "plural": "Familiares",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "alumno": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "puedoVisitar": {
+      "accepts": [
+        {
+          "arg": "hora",
+          "type": "date",
+          "required": false,
+          "description": "El momento en el que el usuario desea ser recibido o el momento actual en caso de que no se haya enviado ninguno",
+          "http": {
+            "source": "query"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "horarioValido",
+          "type": "string",
+          "root": false,
+          "description": "Indica si el horario es válido o no para la visita"
+        }
+      ],
+      "description": "Indica el horario en el que se reciben visitas",
+      "http": [
+        {
+          "path": "/puedoVisitar",
+          "verb": "get"
+        }
+      ]
+    },
+    "prototype.getNombre": {
+      "accepts": [],
+      "returns": [
+        {
+          "arg": "nombre",
+          "type": "object",
+          "root": false,
+          "description": "El nombre del familiar"
+        }
+      ],
+      "description": "Devuelve el nombre de un determinado familiar",
+      "http": [
+        {
+          "path": "/getNombre",
+          "verb": "get"
+        }
+      ]
+    },
+    "prototype.nuevoFamiliar": {
+      "accepts": [
+        {
+          "arg": "nombreFamiliar",
+          "type": "string",
+          "required": true,
+          "description": "El nombre completo del familiar",
+          "http": {
+            "source": "form"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "familiar",
+          "type": "object",
+          "root": false,
+          "description": "El nuevo familiar creado"
+        }
+      ],
+      "description": "Añadimos un nuevo familiar a un alumno ya existente",
+      "http": [
+        {
+          "path": "/otroFamiliar",
+          "verb": "post"
+        }
+      ]
+    }
+  }
+}
