@@ -17,8 +17,27 @@
     }
   },
   "validations": [],
-  "relations": {},
-  "acls": [],
+  "relations": {
+    "visitas": {
+      "type": "hasMany",
+      "model": "Visita",
+      "foreignKey": ""
+    },
+    "profesores": {
+      "type": "hasMany",
+      "model": "Profesor",
+      "foreignKey": "",
+      "through": "Visita"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    }
+  ],
   "methods": {
     "puedoVisitar": {
       "accepts": [

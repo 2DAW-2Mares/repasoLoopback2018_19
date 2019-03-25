@@ -1,0 +1,40 @@
+{
+  "name": "Profesor",
+  "plural": "Profesores",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nombre": {
+      "type": "string"
+    },
+    "apellidos": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "visitas": {
+      "type": "hasMany",
+      "model": "Visita",
+      "foreignKey": ""
+    },
+    "familiares": {
+      "type": "hasMany",
+      "model": "Familiar",
+      "foreignKey": "",
+      "through": "Visita"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    }
+  ],
+  "methods": {}
+}

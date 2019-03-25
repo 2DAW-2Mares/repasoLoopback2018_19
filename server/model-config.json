@@ -38,5 +38,13 @@
   "Familiar": {
     "dataSource": "mysqlDs",
     "public": true
+  },
+  "Visita": {
+    "dataSource": "mongoDs",
+    "public": true
+  },
+  "Profesor": {
+    "dataSource": "mongoDs",
+    "public": true
   }
 }
