@@ -41,7 +41,58 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "__create__visitas"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "buenos"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "buenosII"
     }
   ],
-  "methods": {}
+  "methods": {
+    "buenos": {
+      "accepts": [],
+      "returns": [
+        {
+          "arg": "buenosDocentes",
+          "type": "array",
+          "root": false,
+          "description": "El array con los docentes que no tienen ninguna valoración negativa"
+        }
+      ],
+      "description": "Muestra los profesores que no tienen ninguna valoración negativa.",
+      "http": [
+        {
+          "path": "/buenos",
+          "verb": "get"
+        }
+      ]
+    },
+    "buenosII": {
+      "accepts": [],
+      "returns": [
+        {
+          "arg": "buenosDocentes",
+          "type": "array",
+          "root": false,
+          "description": "El array con los docentes que no tienen ninguna valoración negativa"
+        }
+      ],
+      "description": "Muestra los profesores que no tienen ninguna valoración negativa.",
+      "http": [
+        {
+          "path": "/buenosII",
+          "verb": "get"
+        }
+      ]
+    }
+  }
 }

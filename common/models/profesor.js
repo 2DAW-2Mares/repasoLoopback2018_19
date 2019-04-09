@@ -1,4 +1,6 @@
 'use strict';
+var _ = require('lodash');
+var async = require('async');
 
 module.exports = function(Profesor) {
   Profesor.beforeRemote('prototype.__create__visitas', function(context, instance, next) {
@@ -7,4 +9,93 @@ module.exports = function(Profesor) {
     context.args.data.date = fechaManyana;
     next();
   });
+
+  /**
+   * Muestra los profesores que, teniendo valoraciones positivas,
+   * no tienen ninguna valoración negativa.
+   * @param {Function(Error, array)} callback
+   */
+
+  Profesor.buenos = function(callback) {
+
+    async.parallel({
+      docentesValoracionesPositivas: async.apply(Profesor.valoracionesPositivas),
+      docentesValoracionesNegativas: async.apply(Profesor.valoracionesNegativas),
+    }, function(err, results) {
+      if (err) callback(err);
+      var docentesValoracionesPositivas =
+        _.filter(results.docentesValoracionesPositivas, function(o) {
+          let visitas = o.visitas();
+          return (visitas.length > 0);
+        });
+      var docentesValoracionesNegativas =
+        _.filter(results.docentesValoracionesNegativas, function(o) {
+          let visitas = o.visitas();
+          return (visitas.length > 0);
+        });
+
+      var docentesBuenos =
+        _.differenceBy(docentesValoracionesPositivas, docentesValoracionesNegativas, 'id');
+      callback(null, docentesBuenos);
+    });
+
+  };
+
+  Profesor.valoracionesPositivas = function(cb) {
+    var filterValoracionesPositivas = {
+      include: {
+        relation: 'visitas',
+        scope: {
+          where: {
+            rating: {gte: 4},
+          },
+        },
+      },
+    };
+
+    Profesor.find(filterValoracionesPositivas, cb);
+  };
+
+  Profesor.valoracionesNegativas = function(cb) {
+    var filterValoracionesNegativas = {
+      include: {
+        relation: 'visitas',
+        scope: {
+          where: {
+            rating: {lt: 4},
+          },
+        },
+      },
+    };
+
+    Profesor.find(filterValoracionesNegativas, cb);
+  };
+
+  /**
+   * Muestra los profesores que, teniendo valoraciones positivas,
+   * no tienen ninguna valoración negativa.
+   * @param {Function(Error, array)} callback
+   * SELECT * FROM visitasDocentes.Profesor
+   * WHERE
+   * id IN (SELECT profesorId FROM Visita WHERE rating >= 4)
+   * AND
+   * id NOT IN (SELECT profesorId FROM Visita WHERE rating < 4);
+   */
+
+  Profesor.buenosII = function(callback) {
+    var Visita = Profesor.app.models.Visita;
+
+    async.parallel({
+      valoracionesPositivas: async.apply(Visita.valoracionesPositivas),
+      valoracionesNegativas: async.apply(Visita.valoracionesNegativas),
+    }, function(err, results) {
+      if (err) callback(err);
+
+      let docentesValoracionesPositasSinNegativas =
+        _.differenceBy(results.valoracionesPositivas, results.valoracionesNegativas, 'profesorId');
+      let docentesValoracionesPositasSinNegativasId =
+        _.map(docentesValoracionesPositasSinNegativas, 'profesorId');
+      Profesor.find({where: {id: {inq: docentesValoracionesPositasSinNegativasId}}}, callback);
+    });
+  };
 };
