@@ -7,21 +7,21 @@
   </head>
   <body>
     <header>
-      <h1>Coffee shop reviews</h1>
+      <h1>Coffee shop visitas</h1>
       <h2 ng-show="currentUser">Hello {{currentUser.email}}</h2>
       <nav>
         <ul>
           <li>
-            <a ui-sref="all-reviews" ui-sref-active="active">All reviews</a>
+            <a ui-sref="all-visitas" ui-sref-active="active">Todas las visitas</a>
           </li>
           <li ng-hide="currentUser">
             <a ui-sref="sign-up" ui-sref-active="active">Sign up</a>
           </li>
           <li ng-show="currentUser">
-            <a ui-sref="my-reviews" ui-sref-active="active">My Reviews</a>
+            <a ui-sref="my-visitas" ui-sref-active="active">My Visitas</a>
           </li>
           <li ng-show="currentUser">
-            <a ui-sref="add-review" ui-sref-active="active">Add Review</a>
+            <a ui-sref="add-visita" ui-sref-active="active">Add Visita</a>
           </li>
           <li ng-hide="currentUser">
             <a ui-sref="login" ui-sref-active="active">Log in</a>
@@ -41,7 +41,7 @@
     <script src="js/app.js"></script>
     <script src="js/services/lb-services.js"></script>
     <script src="js/controllers/auth.js"></script>
-    <script src="js/controllers/review.js"></script>
+    <script src="js/controllers/visita.js"></script>
     <script src="js/services/auth.js"></script>
   </body>
 </html>

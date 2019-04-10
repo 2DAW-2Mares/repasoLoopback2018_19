@@ -1,0 +1,34 @@
+<section>
+  <form name="form" ng-submit="submitForm()">
+    <fieldset>
+      <legend>{{action}} visita form</legend>
+
+      <div class="form-group">
+        <label>Nombre del familiar</label>
+        <select
+            ng-disabled="isDisabled"
+            ng-model="selectedFamiliar"
+            ng-options="pariente as pariente.nombre for pariente in familiares"></select>
+      </div>
+
+      <div class="form-group">
+        <label>Rating</label>
+        <input type="radio" ng-model="visita.rating" value="1">1&#9733;
+        <input type="radio" ng-model="visita.rating" value="2">2&#9733;
+        <input type="radio" ng-model="visita.rating" value="3">3&#9733;
+        <input type="radio" ng-model="visita.rating" value="4">4&#9733;
+        <input type="radio" ng-model="visita.rating" value="5">5&#9733;
+      </div>
+
+      <div class="form-group">
+        <label>Comments</label>
+        <textarea ng-model="visita.comments"></textarea>
+      </div>
+
+      <div class="actions">
+        <label></label>
+        <button>{{action}} visita</button>
+      </div>
+    </fieldset>
+  </form>
+<section>
