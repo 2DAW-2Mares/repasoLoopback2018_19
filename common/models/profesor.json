@@ -55,6 +55,27 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "buenosII"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "__get__familiares"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "familiaresVisitantes"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "familiaresNoVisitantes"
     }
   ],
   "methods": {
@@ -90,6 +111,42 @@
       "http": [
         {
           "path": "/buenosII",
+          "verb": "get"
+        }
+      ]
+    },
+    "prototype.familiaresVisitantes": {
+      "accepts": [],
+      "returns": [
+        {
+          "arg": "familiares",
+          "type": "array",
+          "root": false,
+          "description": "Los familiares que han visitado al profesor"
+        }
+      ],
+      "description": "Muestra los familiares que han visitado a un determinado docente",
+      "http": [
+        {
+          "path": "/familiaresVisitantes",
+          "verb": "get"
+        }
+      ]
+    },
+    "prototype.familiaresNoVisitantes": {
+      "accepts": [],
+      "returns": [
+        {
+          "arg": "familiares",
+          "type": "array",
+          "root": false,
+          "description": "Los familiares que no han visitado al profesor"
+        }
+      ],
+      "description": "Muestra los familiares que no han visitado a un determinado docente",
+      "http": [
+        {
+          "path": "/familiaresNoVisitantes",
           "verb": "get"
         }
       ]

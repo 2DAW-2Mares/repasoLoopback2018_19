@@ -98,4 +98,43 @@ module.exports = function(Profesor) {
       Profesor.find({where: {id: {inq: docentesValoracionesPositasSinNegativasId}}}, callback);
     });
   };
+  
+    /**
+     * Muestra los familiares que han visitado a un determinado docente
+     * @param {Function(Error, array)} callback
+     */
+
+    Profesor.prototype.familiaresVisitantes = function(callback) {
+      var esteProfesor = this;
+      esteProfesor.familiares(function(err, familiares){
+          if(err) callback(err);
+          let familiaresSinDuplicados = 
+                  _.uniqBy(familiares, 'id');
+          callback(err, familiaresSinDuplicados);
+      });
+    };
+
+    /**
+     * Muestra los familiares que no han visitado a un determinado docente
+     * @param {Function(Error, array)} callback
+     */
+
+    Profesor.prototype.familiaresNoVisitantes = function(callback) {
+      var Familiar = Profesor.app.models.Familiar;
+      var esteProfesor = this;
+      esteProfesor.familiares(function(err, familiares){
+          if(err) callback(err);
+          let familiaresSinDuplicados = 
+                  _.uniqBy(familiares, 'id');
+          Familiar.find(function(err, todosLosFamiliares){
+            let familiaresNoVisitantes = 
+                _.differenceBy(todosLosFamiliares, familiaresSinDuplicados, 'id');
+                        
+            callback(err, familiaresNoVisitantes);
+          });
+
+      });
+    };
+
+
 };
