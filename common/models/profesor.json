@@ -26,6 +26,11 @@
       "model": "Familiar",
       "foreignKey": "",
       "through": "Visita"
+    },
+    "alumnos": {
+      "type": "hasAndBelongsToMany",
+      "model": "Alumno",
+      "foreignKey": ""
     }
   },
   "acls": [

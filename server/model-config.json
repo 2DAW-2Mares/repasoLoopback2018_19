@@ -46,5 +46,9 @@
   "Profesor": {
     "dataSource": "mongoDs",
     "public": true
+  },
+  "Alumno": {
+    "dataSource": "mysqlDs",
+    "public": true
   }
 }

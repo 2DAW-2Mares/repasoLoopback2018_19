@@ -1,0 +1,41 @@
+{
+  "name": "Alumno",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nre": {
+      "type": "number",
+      "required": true
+    },
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "apellidos": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "familiares": {
+      "type": "hasAndBelongsToMany",
+      "model": "Familiar",
+      "foreignKey": ""
+    },
+    "profesores": {
+      "type": "hasAndBelongsToMany",
+      "model": "Profesor",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

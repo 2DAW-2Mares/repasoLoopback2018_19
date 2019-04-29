@@ -10,6 +10,19 @@ module.exports = function(Profesor) {
     next();
   });
 
+  Profesor.beforeRemote('prototype.__create__visitas', function(context, instance, next) {
+    var familiarId = context.args.data.familiarId;
+    var Familiar = Profesor.app.models.Familiar;
+    
+    Familiar.findById(familiarId, function(err, familiar){
+        familiar.alumnos(function(err, alumnos){
+            console.log(alumnos);
+            next();
+        });
+    });
+  });
+
+
   /**
    * Muestra los profesores que, teniendo valoraciones positivas,
    * no tienen ninguna valoración negativa.
