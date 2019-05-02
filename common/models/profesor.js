@@ -15,9 +15,19 @@ module.exports = function(Profesor) {
     var Familiar = Profesor.app.models.Familiar;
     
     Familiar.findById(familiarId, function(err, familiar){
-        familiar.alumnos(function(err, alumnos){
-            console.log(alumnos);
-            next();
+        familiar.alumnos(function(err, alumnosFamiliar){
+            console.log(alumnosFamiliar);
+            Profesor.findById(context.req.params.id, function(err, profesor){
+                profesor.alumnos(function(err, alumnosProfesor){
+                    console.log(alumnosProfesor);
+                    let alumnosCompartidos = _.intersectionBy(alumnosFamiliar, alumnosProfesor, 'id');
+                    if(alumnosCompartidos.length > 0) {
+                        next();
+                    } else {
+                        next(new Error('El profesor no le imparte docencia a ninguno de sus familiares'));
+                    }
+                });
+            });
         });
     });
   });
