@@ -1,0 +1,29 @@
+{
+  "name": "Materia",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "profesor": {
+      "type": "belongsTo",
+      "model": "Profesor",
+      "foreignKey": ""
+    },
+    "grupo": {
+      "type": "belongsTo",
+      "model": "Grupo",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

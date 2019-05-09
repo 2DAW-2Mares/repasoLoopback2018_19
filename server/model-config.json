@@ -50,5 +50,13 @@
   "Alumno": {
     "dataSource": "mysqlDs",
     "public": true
+  },
+  "Grupo": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "Materia": {
+    "dataSource": "mysqlDs",
+    "public": true
   }
 }

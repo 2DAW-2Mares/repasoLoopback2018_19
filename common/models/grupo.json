@@ -1,0 +1,91 @@
+{
+  "name": "Grupo",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nivel": {
+      "type": "string",
+      "required": true
+    },
+    "curso": {
+      "type": "number",
+      "required": true
+    },
+    "letra": {
+      "type": "string"
+    },
+    "ratioMax": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "profesorTutor": {
+      "type": "belongsTo",
+      "model": "Profesor",
+      "foreignKey": "tutor"
+    },
+    "materia": {
+      "type": "hasMany",
+      "model": "Materia",
+      "foreignKey": ""
+    },
+    "imparte": {
+      "type": "hasMany",
+      "model": "Profesor",
+      "foreignKey": "",
+      "through": "Materia"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "create"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {
+    "getByNivel": {
+      "accepts": [
+        {
+          "arg": "nivel",
+          "type": "string",
+          "required": true,
+          "description": "El nivel del que se quieren obtener los grupos"
+        }
+      ],
+      "returns": [
+        {
+          "arg": "gruposDelNivel",
+          "type": "array",
+          "root": false,
+          "description": "los grupos de ese nivel"
+        }
+      ],
+      "description": "Los grupos de un determinado nivel",
+      "http": [
+        {
+          "path": "/getByNivel",
+          "verb": "get"
+        }
+      ]
+    }
+  }
+}
